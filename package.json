@@ -1,7 +1,7 @@
 {
-  "name": "ate",
+  "name": "ATE",
   "version": "1.0.0",
-  "description": "In browser text editor",
+  "description": "PWA text editor",
   "main": "server.js",
   "scripts": {
     "start:dev": "",
