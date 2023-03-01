@@ -17,7 +17,7 @@ export const putDb = async (content) => {
   const database = await openDB('ate', 1)
   const tran = database.transaction('ate', 'readwrite');
   const store = tran.objectStore('ate');
-  const result = await store.put(content);
+  const result = await store.put({id:1, value:content});
   await tran.done;
   console.log('Date saved to the database', content);
   return result
@@ -31,7 +31,7 @@ export const getDb = async () => {
   const store = tran.objectStore('ate');
   const result = await store.getAll()
   await tran.done;
-  return result
+  return result.value
   }
 
 

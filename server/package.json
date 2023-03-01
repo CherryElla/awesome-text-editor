@@ -1,7 +1,7 @@
 {
     "name": "ATE",
     "version": "1.0.0",
-    "description": "PWA text editor",
+    "description": "An awesome PWA text editor",
     "main": "server.js",
     "scripts": {
         "server": "nodemon server.js --ignore client"
