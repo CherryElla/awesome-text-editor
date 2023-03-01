@@ -17,18 +17,21 @@ export const putDb = async (content) => {
   const database = await openDB('ate', 1)
   const tran = database.transaction('ate', 'readwrite');
   const store = tran.objectStore('ate');
-  await store.put(content);
+  const result = await store.put(content);
   await tran.done;
   console.log('Date saved to the database', content);
+  return result
+
 }
 
-// TODO: Add logic for a method that gets all the content from the database
+// Logic for a method that gets all the content from the database
 export const getDb = async () => {
   const database = await openDB('ate', 1);
   const tran = database.transaction('ate', 'readonly');
   const store = tran.objectStore('ate');
-  await store.getAll()
+  const result = await store.getAll()
   await tran.done;
+  return result
   }
 
 

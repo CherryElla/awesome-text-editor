@@ -20,50 +20,23 @@ const pageCache = new CacheFirst({
   ],
 });
 
-
-const cacheName = 'static-resources';
-const matchCallback = ({ request }) => {
-  console.log(request);
-  return (
-    // CSS
-    request.destination === 'style' ||
-    // JavaScript
-    request.destination === 'script'
-  );
-};
-
-registerRoute(
-  matchCallback,
-  new StaleWhileRevalidate({
-    cacheName,
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  })
-);
-
 warmStrategyCache({
   urls: ['/index.html', '/'],
   strategy: pageCache,
 });
 
+
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // Asset caching
 registerRoute(
-  ({ request }) => request.destination === 'image',
-  new CacheFirst({
-    cacheName: 'my-image-cache',
+  ({ request }) => ["style",'script', 'worker'].includes(request.destination),
+  new StaleWhileRevalidate({
+    cacheName: 'asset-cache',
     plugins: [
       new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-      new ExpirationPlugin({
-        maxEntries: 60,
-        maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-      }),
-    ],
+        statuses: [0,200]
+      })
+    ]
   })
 );
