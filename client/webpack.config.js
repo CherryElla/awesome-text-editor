@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 
 module.exports = () => {
   return {
@@ -24,16 +24,32 @@ module.exports = () => {
         swSrc: './src-sw.js',
         swDest: 'src-sw.js'
       }),
-      new MiniCssExtractPlugin()
-
-      
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: 'Just Another Text Editor',
+        short_name: 'ATE',
+        description: 'Awesome in browser note taker!',
+        background_color: '#ffbe0b',
+        theme_color: '#3a86ff',
+        start_url: '/',
+        publicPath: '/',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
+          },
+        ],
+      }),
     ],
 
     module: {
       rules: [
         {
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader']
+          exclude: /node_modules/,
+          use: ['style-loader', 'css-loader']
         },
         {
           test: /\.m?js$/,
@@ -41,6 +57,7 @@ module.exports = () => {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime']
             }
           }
         }

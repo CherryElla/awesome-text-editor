@@ -20,7 +20,6 @@ const pageCache = new CacheFirst({
   ],
 });
 
-precacheAndRoute(self.__WB_MANIFEST);
 
 const cacheName = 'static-resources';
 const matchCallback = ({ request }) => {
