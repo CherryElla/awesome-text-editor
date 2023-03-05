@@ -19,7 +19,7 @@ module.exports = () => {
       // Plugin to create HTML and inject bundles
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'ATE'
+        title: 'A.T.E'
       }),
       // Injection of custom worker
       new InjectManifest({
@@ -30,12 +30,12 @@ module.exports = () => {
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
-        name: 'Just Another Text Editor',
-        short_name: 'ATE',
-        description: 'Awesome in browser note taker!',
+        name: 'Awesome Text Editor',
+        short_name: 'A.T.E',
+        description: 'Awesome in browser text editor!',
         background_color: '#ffbe0b',
         theme_color: '#3a86ff',
-        start_url: '/',
+        start_url: './',
         publicPath: '/',
         icons: [
           {
@@ -51,11 +51,12 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          exclude: /node_modules/,
+
           use: ['style-loader', 'css-loader']
         },
         {
           test: /\.m?js$/,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {

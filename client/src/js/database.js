@@ -19,7 +19,7 @@ export const putDb = async (content) => {
   const store = tran.objectStore('ate');
   const result = await store.put({id:1, value:content});
   await tran.done;
-  console.log('Date saved to the database', content);
+  console.log('Date saved to the database', result);
   return result
 
 }
