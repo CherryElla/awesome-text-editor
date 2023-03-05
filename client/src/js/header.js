@@ -8,7 +8,7 @@ const header = `
 /**//////**    /**    /**      
 /**     /**    /**    /********
 //      //     //     ////////  
-awesome text editor
+My Awesome Text Editor
 */                          
 `;
 
